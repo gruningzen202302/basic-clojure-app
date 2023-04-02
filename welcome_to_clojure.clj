@@ -143,10 +143,7 @@
   ;; programs.
 
   ;; == STRINGS ==
-  ;; Somewhere in between the atomic literals and
-  ;; the collections we have strings. They are sometimes
-  ;; treated as sequences (a cool abstraction I'll
-  ;; talk more about).
+  ;; Somewhere in between the atomic literals and the collections we have strings. They are sometimes treated as sequences (a cool abstraction I'll talk more about).
   ;; Strings are enclosed by double quotes. 
 
   "A string can be
@@ -154,34 +151,24 @@
   "Write strings
 like this, if leading spaces are no-no."
 
-  ;; (The single quote is used for something else.
-  ;; You'll see for what a bit later.)
+  ;; (The single quote is used for something else. You'll see for what a bit later.)
   )
 
 (comment
   ;; = NAMESPACES =
-  ;; As important as namespaces are, we won't dwell on
-  ;; the subject very much in this guide. The official
+  ;; As important as namespaces are, we won't dwell on the subject very much in this guide. The official
   ;; docs make them the best justice:
   ;; https://clojure.org/reference/namespaces
   ;;   
-  ;; There are some things we really need to know
-  ;; though...
-  ;; Clojure symbols are defined in namespaces (With
-  ;; the `def `special form) where they are reachable
-  ;; from any other namespace.
+  ;; There are some things we really need to know though...
+  ;; Clojure symbols are defined in namespaces (With the `def `special form) where they are reachable from any other namespace.
 
   (def foo-2 "foo")
 
-  ;; Also know that there is such a thing as the
-  ;; current namespace. (A bit like the current working
-  ;; directory in the shell.) When you evaluated the
-  ;; `def` form above, you saw where `foo-2` got
-  ;; defined.
+  ;; Also know that there is such a thing as the current namespace. (A bit like the current working directory in the shell.) When you evaluated the `def` form above, 
+  ;; you saw where `foo-2` got defined.
 
-  ;; When evaluating a symbol from any namespace it
-  ;; must have been defined, or the compiler will
-  ;; complain, and throw
+  ;; When evaluating a symbol from any namespace it must have been defined, or the compiler will complain, and throw
 
   foo-3
 
@@ -189,43 +176,27 @@ like this, if leading spaces are no-no."
 
   some-namespace/foo
 
-  ;; If you have loaded the `hello_repl.clj` file
-  ;; the `hello-repl` namespace is created and its
-  ;; top level symbols are defined (not the ones
-  ;; hidden in `(comment ...)` forms, because the
-  ;; `comment` macro ignores the body and just
-  ;; evaluates to/returns `nil`)
+  ;; If you have loaded the `hello_repl.clj` file the `hello-repl` namespace is created and its top level symbols are defined (not the ones
+  ;; hidden in `(comment ...)` forms, because the`comment` macro ignores the body and just evaluates to/returns `nil`)
 
   hello-repl/greet
 
   (hello-repl/greet "from the welcome-to-clojure namespace")
 
-  ;; If those throw, you need to first load
-  ;; `hello_repl.clj`, or at least evaluate its `ns`
-  ;; form and the `greet` form.
+  ;; If those throw, you need to first load `hello_repl.clj`, or at least evaluate its `ns` form and the `greet` form.
 
-  ;; It is not to recommend that you rely on some
-  ;; namespace existing like this though. That makes
-  ;; your code brittle. It is better to `require`
-  ;; the namespace. If you haven't loaded it, you
-  ;; can do that in the same go:
+  ;; It is not to recommend that you rely on some namespace existing like this though. That makes your code brittle. It is better to `require` the namespace. 
+  ;; If you haven't loaded it, you can do that in the same go:
 
   (require 'hello-paredit :reload)
 
   hello-paredit/strict-greet
   (hello-paredit/strict-greet "World")
 
-  ;; For most Clojure code you write you will arrange
-  ;; it into separate files with one namespace each,
-  ;; and use the `ns` form (that starts most Clojure
-  ;; files) to `:require` the needed namespaces, aliasing
-  ;; them to something convenient and sometimes `:refer`
-  ;; in some of their symbols so that you can use
-  ;; them without the namespace prefix (which is the
-  ;; text before the `/`, btw, in case that wasn't
-  ;; obvious enough). Examine the `ns` form of this
-  ;; file to see why these forms compile without
-  ;; complaints:
+  ;; For most Clojure code you write you will arrange it into separate files with one namespace each, and use the `ns` form (that starts most Clojure files) 
+  ;; to `:require` the needed namespaces, aliasing them to something convenient and sometimes `:refer` in some of their symbols so that you can use
+  ;; them without the namespace prefix (which is the text before the `/`, btw, in case that wasn't obvious enough). Examine the `ns` form of this
+  ;; file to see why these forms compile without complaints:
 
   (doc require) ; Check the output window
   (string/split "foo:bar:baz" #":")
@@ -233,16 +204,9 @@ like this, if leading spaces are no-no."
   ;; See also:
   ;; https://clojuredocs.org/clojure.core/ns
 
-  ;; Any namespace can be created at the REPL. However,
-  ;; when a namespace is required, either via the
-  ;; `require` or `use` functions, or via the `ns` form
-  ;; The Clojure Reader will look up the file addressed
-  ;; by the namespace required in the classpath. When
-  ;; doing so, dots in in the namespace name separate
-  ;; directories, and dashes will be replaced by underscores.
-  ;; Say you have a `src` in your classpath, and a file
-  ;; `src/foo/bar_baz.clj` in the project. This file should
-  ;; have an `ns` form looking like:
+  ;; Any namespace can be created at the REPL. However, when a names `require` or `use` functions, or via the `ns` form The Clojure Reader will look up the file 
+  ;; addressed by the namespace required in the classpath. When doing so, dots in in the namespace name separate directories, and dashes will be replaced by 
+  ;; underscores. Say you have a `src` in your classpath, and a file `src/foo/bar_baz.clj` in the project. This file should have an `ns` form looking like:
 
   (ns foo.bar-baz ,,,)
 
@@ -255,14 +219,12 @@ like this, if leading spaces are no-no."
   (ns welcome-to-clojure
     (:require [foo.bar-baz]))
 
-  ;; If you evaluate any of those requires, you will get an
-  ;; error message from the repl, telling you which files the
-  ;; Clojure Reader looked for to find the namespace definition.
+  ;; If you evaluate any of those requires, you will get an error message from the repl, telling you which files the Clojure Reader looked for to find the namespace
+  ;; definition.
 
   ;; Two common mistakes:
   ;; 1. Naming files using dashes instead of underscores.
-  ;; 2. Using `(require ...)` instead of `(:require)` in the
-  ;;    `ns` form.
+  ;; 2. Using `(require ...)` instead of `(:require)` in the    `ns` form.
 
   ;; The `ns` form has a lot of functionality and can be a bit
   ;; tricky to figure out. Here's a nice cheat sheet:
@@ -270,28 +232,21 @@ like this, if leading spaces are no-no."
 
   
   ;; === Namespaced keywords ===
-  ;; Keywords can also be namespaced, but they are
-  ;; not really registered in a namespace, like
-  ;; symbols are, so you can just use them, regardless
+  ;; Keywords can also be namespaced, but they are not really registered in a namespace, like symbols are, so you can just use them, regardless
 
   :foo-whatever
   :whatever-namespace/foo
 
-  ;; The notion about the current namespace exists
-  ;; for keywords in that the double-colon prefix
-  ;; expands to `:<current-namespace>/foo`:
+  ;; The notion about the current namespace exists for keywords in that the double-colon prefix expands to `:<current-namespace>/foo`:
 
   ::foo
 
-  ;; This is important to know about. `:foo` will
-  ;; refer to the same keyword regardless of from which
-  ;; namespace it is used. `::foo` will not.
+  ;; This is important to know about. `:foo` will refer to the same keyword regardless of from which namespace it is used. `::foo` will not.
   )
 
 (comment
   ;; = COLLECTIONS =
-  ;; Clojure has literal syntax for four collection types
-  ;; They evaluate to themselves.
+  ;; Clojure has literal syntax for four collection types They evaluate to themselves.
 
   '(1 2 3)     ; list (a quoted list, more about this below)
   [1 2 3]      ; vector
@@ -303,35 +258,23 @@ like this, if leading spaces are no-no."
   {:foo [1 2]
    :bar #{1 2}}
   
-  ;; In Clojure we do most things with just these
-  ;; collections. Literal collections and functions.
+  ;; In Clojure we do most things with just these collections. Literal collections and functions.
   )
 
 (comment
   ;; = FUNCTIONS =
-  ;; So far you have been able to evaluate all examples.
-  ;; It's because we quoted that list.
-  ;; Actually lists look like so
+  ;; So far you have been able to evaluate all examples. It's because we quoted that list. Actually lists look like so
 
   (1 2 3)
 
-  ;; But if you evaluate that, you'll get an error:
-  ;; => class java.lang.Long cannot be cast to class
-  ;;    clojure.lang.IFn
-  ;; (Of course, the linter already warned you.)
-  ;; When evaluating unquoted lists the first element
-  ;; in the list is regarded as being in ”function
-  ;; position”. That means Clojure will try to call `1`
-  ;; as a function, which won't work because it is not
-  ;; a function.
-  ;; You might be starting to suspect that a Clojure
-  ;; program is just data? Which is correct. Clojure
+  ;; But if you evaluate that, you'll get an error: => class java.lang.Long cannot be cast to class clojure.lang.IFn (Of course, the linter already warned you.)
+  ;; When evaluating unquoted lists the first element in the list is regarded as being in ”function position”. That means Clojure will try to call `1`
+  ;; as a function, which won't work because it is not a function. You might be starting to suspect that a Clojure program is just data? Which is correct. Clojure
   ;; code is data. Fancier, Clojure is homoiconic:
   ;; https://wiki.c2.com/?HomoiconicLanguages
   ;; This gives great macro power, more about that below.
 
-  ;; Here are some lists with proper functions at
-  ;; position 1:
+  ;; Here are some lists with proper functions at position 1:
 
   (str 1 2 3 4 5 :foo)
   (< 1 2 3 4 5)
