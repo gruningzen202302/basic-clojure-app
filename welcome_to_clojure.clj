@@ -285,47 +285,34 @@ like this, if leading spaces are no-no."
   (println "From Clojure with ♥️")
   (reverse [5 4 3 2 1])
 
-  ;; Everything after the first position is
-  ;; handed to the function as arguments
+  ;; Everything after the first position is handed to the function as arguments
 
-  ;; Note: I'll be referring to literals, symbols, lists,
-  ;; and other literal collections, collectively as forms,
-  ;; sometimes, sexprs:
+  ;; Note: I'll be referring to literals, symbols, lists,and other literal collections, collectively as forms, sometimes, sexprs:
   ;; https://en.wikipedia.org/wiki/S-expression
-  ;; Above, `(str 1 2 3 4 5 :foo)` is a form, as is `str`,
-  ;; `1` and `:foo`.
+  ;; Above, `(str 1 2 3 4 5 :foo)` is a form, as is `str`,`1` and `:foo`.
   
 
-  ;; You define new functions and bind them to names
-  ;; in the current namespace using the macro `defn`.
-  ;; It's a very flexible macro. Here's a simple use:
+  ;; You define new functions and bind them to names in the current namespace using the macro `defn`.It's a very flexible macro. Here's a simple use:
 
   (defn add2
     [arg]
     (+ arg 2))
 
-  ;; It defines the function `add2` taking one argument.
-  ;; The function body calls the core functions `+`
-  ;; with the arguments `arg` and 2.
-  ;; Evaluating the form will define it and you'll see:
+  ;; It defines the function `add2` taking one argument. The function body calls the core functions `+` with the arguments `arg` and 2. Evaluating the form will define  ;; it and you'll see:
   ;; => #'hello-clojure/add2
-  ;; That's a var ”holding” the value of the function
-  ;; You can now reference the var using the symbol
-  ;; `add2`. Putting it in the function position of a
-  ;; list with 3 in the first argument position and 
-  ;; evaluating the list gives us back what?
+  ;; That's a var ”holding” the value of the function You can now reference the var using the symbol `add2`. Putting it in the function position of a list with 3 in 
+  ;; the first argument position and evaluating the list gives us back what?
 
   (add2 3)
 
-  ;; Clojure has an extensive core library of functions
-  ;; and macros. See: https://clojuredocs.org for a 
-  ;; community-driven Clojure core (and more) search engine.
+  ;; Clojure has an extensive core library of functions and macros. See: 
+  ;; https://clojuredocs.org 
+  ;; for a community-driven Clojure core (and more) search engine.
   )
 
 (comment
   ;; = SPECIAL FORMS and MACROS =
-  ;; The core library is composed from the functions and macros
-  ;; in the library itself. Bootstrapping the library is
+  ;; The core library is composed from the functions and macros in the library itself. Bootstrapping the library is
   ;; a few (15-ish) built-in primitive forms,
   ;; aka ”special forms”.
 
@@ -346,15 +333,12 @@ like this, if leading spaces are no-no."
   (= (quote (1 2 3))
      '(1 2 3))
 
-  ;; Clojure has value semantics. Any data structures
-  ;; that evaluate to the same data are equal,
-  ;; no matter how deep or big the structures are.
+  ;; Clojure has value semantics. Any data structures that evaluate to the same data are equal,no matter how deep or big the structures are.
 
   (= [1 [1 #{1 {:a 1 :b '(:foo bar)}}]]
      [1 [1 #{1 {:a (- 3 2) :b (quote (:foo bar))}}]])
 
-  ;; ... but that was a detour, back to special forms.
-  ;; Official docs:
+  ;; ... but that was a detour, back to special forms. Official docs:
   ;; https://clojure.org/reference/special_forms#_other_special_forms
 
   ;; A very important special form is `fn` (which is
@@ -369,20 +353,18 @@ like this, if leading spaces are no-no."
 
   ((fn [arg] (+ arg 2)) 3)
 
-  ;; Another special form is `def`. It defines things,
-  ;; giving them namespaced names.
+  ;; Another special form is `def`. It defines things, giving them namespaced names.
 
   (def foo :foo)
 
-  ;; ”Defining a thing” means that a var is created,
-  ;; holding the value, and that a symbol is bound
-  ;; to the var. Evaluating the symbol picks up the
-  ;; value from the var it is bound to.
+  ;; ”Defining a thing” means that a var is created, holding the value, and that a symbol is bound to the var. Evaluating the symbol picks up the value from 
+  ;; the var it is bound to.
+  ;; KEYWORDS: var , value , symbol , binding 
 
   foo
 
-  ;; The var can be accessed using the `var` special
-  ;; form.
+  ;; The var can be accessed using the `var` special form.
+  ;; KEYWORDS: special form 
 
   (var foo)
 
@@ -390,22 +372,23 @@ like this, if leading spaces are no-no."
 
   #'foo
 
+  ;; KEYWORDS: shorthand  
+
   ;; With these two special forms we can define functions
+  ;; KEYWORDS: function, special form, def, fn
 
   (def add2-2 (fn [arg] (+ arg 2)))
   (add2-2 3)
 
-  ;; This is what the macro `defn` does. You will most
-  ;; often be defining functions like what we saw
-  ;; earlier, (when discussing the function position of
-  ;; a form):
-
+  ;; This is what the macro `defn` does. You will most often be defining functions like what we saw earlier, (when discussing the function position of a form):
+  ;; KEYWORDS: macro, defn 
+  
   (defn add2-3
     [arg]
     (+ arg 2))
 
-  ;; We can use the function `macroexpand` to see what
-  ;; the macro produces:
+  ;; We can use the function `macroexpand` to see what the macro produces:
+  ;; KEYWORDS: macroexpand
 
   (macroexpand '(defn add2-3
                   [arg]
@@ -417,17 +400,16 @@ like this, if leading spaces are no-no."
     'value-if-true
     'value-if-false)
 
-  ;; `macroexpand does nothing here, since `if` is not
-  ;; a macro:
-  
+  ;; `macroexpand does nothing here, since `if` is not a macro:
+  ;; KEYWORDS: if  
+
   (macroexpand '(if test
                   value-if-true
                   value-if-false))
 
   ;; (Nor is it a function)
 
-  ;; Fun fact: Besides `case`, all conditional and control
-  ;; flow constructs in Clojure are build using `if`:
+  ;; Fun fact: Besides `case`, all conditional and control flow constructs in Clojure are built using `if`:
 
   (macroexpand '(when test
                   value-if-true))
